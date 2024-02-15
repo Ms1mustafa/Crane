@@ -1,0 +1,154 @@
+:root {
+
+  --neutral-very-light-grayish-blue: hsl(210, 60%, 98%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  color: var(--neutral-very-dark-blue);
+}
+
+.container {
+  width: 1440px;
+  margin: 0px auto;
+  height: 100vh;
+  background: var(--neutral-very-light-grayish-blue);
+  border: 1px solid var(--neutral-very-light-grayish-blue);
+}
+
+.attribution {
+  margin: 50px auto 5px;
+}
+
+.app {
+  width: 700px;
+  margin: 50px auto;
+  background: var(--neutral-white);
+  border-radius: 20px;
+  padding: 15px 25px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.header h2 {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.reqcolor {
+  color: #00925a;
+}
+
+.req-box {
+  background: var(--neutral-very-light-grayish-blue);
+
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  margin: 10px 0px;
+}
+
+.body {
+  margin-top: 15px;
+}
+
+.body {
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  margin: 10px 0px;
+}
+
+.input-fieldselect {
+  max-width: 380px;
+  width: 100%;
+  background-color: #00925a;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+  color: #fff;
+}
+
+.btn-req {
+  background-color: #fff;
+  border: 2px solid #00925a;
+  border-radius: 3px;
+  width: 100px;
+  height: 40px;
+  margin-left: 200px;
+  font-weight: bold;
+}
+
+/* responsive */
+@media screen and (max-width: 600px) {
+  * {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 375px;
+  }
+
+  .app {
+    width: 375px;
+    margin: 0 auto;
+    padding: 15px 15px;
+  }
+
+  .btn-req {
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .btn-reqDriverinput {
+    position: relative;
+    top: 20px
+  }
+}
+
+.buttonDriver {
+  display: flex;
+}
+
+.btn-reqDriver {
+  width: 80px;
+  height: 40px;
+  border: 1px #00925a solid;
+  background-color: #00925a;
+  color: #fff;
+  border-radius: 3px;
+
+}
+
+.btn-reqDriverinput {
+  width: 220px;
+  height: 40px;
+  border: 1px #00925a solid;
+  color: #fff;
+  border-radius: 3px;
+}
