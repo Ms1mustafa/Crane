@@ -1,0 +1,95 @@
+:root {
+
+  --neutral-very-light-grayish-blue: hsl(210, 60%, 98%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  color: var(--neutral-very-dark-blue);
+}
+
+
+.container {
+  width: 1440px;
+  margin: 0px auto;
+  height: 100vh;
+  background: var(--neutral-very-light-grayish-blue);
+  border: 1px solid var(--neutral-very-light-grayish-blue);
+}
+
+.input-fieldselect {
+  max-width: 380px;
+  width: 100%;
+  background-color: #00925a;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+  color: #fff;
+}
+
+.btn-req {
+  background-color: #fff;
+  border: 2px solid #00925a;
+  border-radius: 3px;
+  width: 100px;
+  height: 40px;
+  margin-left: 700px;
+  font-weight: bold;
+}
+
+/* responsive */
+@media screen and (max-width: 600px) {
+  * {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 375px;
+  }
+
+  .app {
+    width: 375px;
+    margin: 0 auto;
+    padding: 15px 15px;
+  }
+
+  .btn-req {
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .btn-reqDriverinput {
+    position: relative;
+    top: 20px
+  }
+}
+
+.buttonDriver {
+  display: flex;
+}
+
+.btn-reqDriver {
+  width: 80px;
+  height: 40px;
+  border: 1px #00925a solid;
+  background-color: #00925a;
+  color: #fff;
+  border-radius: 3px;
+
+}
+
+.btn-reqDriverinput {
+  width: 200px;
+  height: 40px;
+  border: 1px #00925a solid;
+  color: #fff;
+  border-radius: 3px;
+}
