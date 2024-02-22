@@ -25,4 +25,10 @@ class Tools
         return $inputText;
     }
 
+    public function getDateOnly($dateTime)
+    {
+        $date = new DateTime($dateTime);
+        return $date->format('Y-m-d');
+    }
+
 }

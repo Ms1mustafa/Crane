@@ -17,10 +17,10 @@ $token = Tools::generateUniqueToken();
 $username = @$_POST["username"];
 $password = @$_POST["password"];
 $email = @$_POST["email"];
-$type = @$_POST["type"];
-$equipment = @$_POST["equipment"];
+$typeId = @$_POST["typeId"];
+$equipmentID = @$_POST["equipmentID"];
 
-$success = $account->create($token, $username, $email, $password, $type, $equipment);
+$success = $account->create($token, $username, $email, $password, $typeId, $equipmentID);
 
 if ($success === true) {
     echo json_encode(array('success' => true));

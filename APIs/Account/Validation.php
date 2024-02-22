@@ -61,4 +61,16 @@ class Validation
             array_push($this->errorArray, constants::$usernameTaken);
         }
     }
+
+    public function validateUsernameExists($username)
+    {
+        $query = $this->con->prepare('SELECT * FROM users WHERE username = :username');
+        $query->bindValue(':username', $username);
+
+        $query->execute();
+
+        if ($query->rowCount() == 0) {
+            array_push($this->errorArray, constants::$usernameNotExist);
+        }
+    }
 }

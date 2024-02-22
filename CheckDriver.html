@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="RequestesJs/Test/getData.js" defer></script>
   <title>Document</title>
   <link rel="stylesheet" href="css/table.css?1999">
 
@@ -27,52 +30,43 @@
           <th>نوع الفحص </th>
 
         </thead>
-        <tbody>
-          <tr>
+        <tbody id="priority1">
+          <!-- <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
             <td>فحص الاطار الامامي </td>
-
-
           </tr>
           <tr>
             <td> </td>
             <td><input type="radio" name="B"></td>
             <td><input type="radio" name="B"></td>
             <td>فحص حزام الامان </td>
-
           </tr>
           <tr>
             <td> </td>
             <td><input type="radio" name="C"></td>
             <td><input type="radio" name="C"></td>
             <td>فحص المنبه الامامي والمنبه الحلفي</td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="D"></td>
             <td><input type="radio" name="D"></td>
             <td> فحص المرايا </td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="E"></td>
             <td><input type="radio" name="E"></td>
             <td>فحص المكابح </td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="F"></td>
             <td><input type="radio" name="F"></td>
             <td>فحص الزجاج الامامي والفرشات </td>
-
-          </tr>
-
-
+          </tr> -->
         </tbody>
       </table>
       <br>
@@ -94,25 +88,20 @@
           <th>مرفوض</th>
           <th>مقبول</th>
           <th>نوع الفحص </th>
-
-
         </thead>
-        <tbody>
-          <tr>
+        <tbody id="priority2">
+          <!-- <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
             <td> فحص الاطار الخلفي</td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
-            <td> فحص مستوى زيت المحرك
-            </td>
-
-
+            <td>فحص مستوى زيت المحرك</td>
+            
           </tr>
           <tr>
             <td></td>
@@ -120,7 +109,6 @@
             <td><input type="radio" name="Accept"></td>
             <td> فحص مستوى زيت الهايدرولك
             </td>
-
           </tr>
           <tr>
             <td></td>
@@ -128,7 +116,6 @@
             <td><input type="radio" name="Accept"></td>
             <td>فحص مستوى الماء
             </td>
-
           </tr>
           <tr>
             <td></td>
@@ -136,7 +123,6 @@
             <td><input type="radio" name="Accept"></td>
             <td>فحص الاضائة
             </td>
-
           </tr>
           <tr>
             <td></td>
@@ -144,45 +130,33 @@
             <td><input type="radio" name="Accept"></td>
             <td>فحص سلالم الصعود والجسم الخارجي
             </td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
             <td>فحص التسريبات
-
             </td>
-
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
             <td> فحص البطاريات
-
-            </td>
-
-          </tr>
-          <tr>
-            <td></td>
-            <td><input type="radio" name="Accept"></td>
-            <td><input type="radio" name="Accept"></td>
-            <td> فحص مستوى الوقود
-
             </td>
           </tr>
           <tr>
             <td></td>
             <td><input type="radio" name="Accept"></td>
             <td><input type="radio" name="Accept"></td>
-            <td>فحص سيور المحرك
-
-
-            </td>
+            <td>فحص مستوى الوقود</td>
           </tr>
-
-
+          <tr>
+            <td></td>
+            <td><input type="radio" name="Accept"></td>
+            <td><input type="radio" name="Accept"></td>
+            <td>فحص سيور المحرك</td>
+          </tr> -->
 
         </tbody>
       </table>
@@ -208,13 +182,7 @@
           <th>نوع الفحص </th>
 
         </thead>
-        <tbody>
-          <td></td>
-          <td><input type="radio" name="Accept"></td>
-          <td><input type="radio" name="Accept"></td>
-          <td>فحص مطفئة الحريق
-
-
+        <tbody id="priority3">
         </tbody>
       </table>
       <br>

@@ -12,14 +12,14 @@ class Account
         $this->con = $con;
     }
 
-    public function create($token, $username, $email, $password, $type, $equipment)
+    public function create($token, $username, $email, $password, $typeId, $equipmentID = null)
     {
 
-        $query = $this->con->prepare("INSERT INTO users (token, username ,email, password, type, equipment) VALUES (:token, :username, :email, :password, :type, :equipment)");
+        $query = $this->con->prepare("INSERT INTO users (token, username ,email, password, typeId, equipmentID) VALUES (:token, :username, :email, :password, :typeId, :equipmentID)");
 
         $validation = new Validation($this->con, $this->errorArray);
 
-        $validation->validateEmpty([$token, $username, $email, $password, $type, $equipment]);
+        $validation->validateEmpty([$token, $username, $email, $password, $typeId]);
         $validation->validateToken($token);
         $validation->validateEmail($email);
         $validation->validateUsername($username);
@@ -29,13 +29,51 @@ class Account
         $query->bindValue(":username", $username);
         $query->bindValue(":email", $email);
         $query->bindValue(":password", $password);
-        $query->bindValue(":type", $type);
-        $query->bindValue(":equipment", $equipment);
+        $query->bindValue(":typeId", $typeId);
+
+        if (!empty($equipmentID)) {
+            $query->bindValue(":equipmentID", $equipmentID);
+        } else {
+            $query->bindValue(":equipmentID", null, PDO::PARAM_NULL);
+        }
 
         if (empty($this->errorArray))
             return $query->execute();
         else
             return false;
+    }
+
+    public function login($username, $password)
+    {
+        $query = $this->con->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $validation = new Validation($this->con, $this->errorArray);
+
+        $validation->validateEmpty([$username, $password]);
+        $validation->validateUsernameExists($username);
+
+        $query->bindValue(":username", $username);
+        $query->bindValue(":password", $password);
+
+        $query->execute();
+
+        $account = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $account;
+    }
+
+    public function getIsLoggedIn($token)
+    {
+        $query = $this->con->prepare("SELECT * FROM users WHERE token = :token");
+
+        $query->bindValue(":token", $token);
+
+        $query->execute();
+
+        if ($query->rowCount() == 1)
+            return true;
+        else
+            return false;
+
     }
 
     public function getError($error)

@@ -45,10 +45,8 @@ class Test
             }, array_keys($conditions)));
         }
 
-        // Prepare the SQL query
         $query = $this->con->prepare($sql);
 
-        // Bind values for parameters in the conditions
         foreach ($conditions as $key => $value) {
             $query->bindValue(":$key", $value);
         }

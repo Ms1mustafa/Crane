@@ -16,6 +16,7 @@ async function Get(requestData, priority) {
         acceptRadio.type = "radio";
         acceptRadio.name = type.token;
         acceptRadio.value = "1";
+        acceptRadio.className = "radio";
         const acceptTd = document.createElement("td");
         acceptTd.appendChild(acceptRadio);
         tr.appendChild(acceptTd);
@@ -24,6 +25,7 @@ async function Get(requestData, priority) {
         rejectRadio.type = "radio";
         rejectRadio.name = type.token;
         rejectRadio.value = "0";
+        rejectRadio.className = "radio";
         const rejectTd = document.createElement("td");
         rejectTd.appendChild(rejectRadio);
         tr.appendChild(rejectTd);
@@ -50,3 +52,17 @@ const priority3 = document.getElementById("priority3");
 Get({ priority: "high" }, priority1);
 Get({ priority: "medium" }, priority2);
 Get({ priority: "low" }, priority3);
+
+let allChecked = true;
+
+document.querySelectorAll(".radio").forEach((radio) => {
+  if (radio.value === "1" && !radio.checked) {
+    allChecked = false;
+  }
+});
+
+if (allChecked) {
+  console.log("All radio buttons with value '1' are checked.");
+} else {
+  console.log("Not all radio buttons with value '1' are checked.");
+}

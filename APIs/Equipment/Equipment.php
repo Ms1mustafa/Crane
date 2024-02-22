@@ -38,6 +38,28 @@ class Equipment
             return false;
     }
 
+    public function get($specialCond = null)
+    {
+        $sql = "SELECT * FROM equipment ";
+
+        // Add special conditions if provided
+        if (!empty($specialCond)) {
+            $sql .= $specialCond;
+        }
+
+        // Prepare the SQL query
+        $query = $this->con->prepare($sql);
+
+        // Execute the query
+        $query->execute();
+
+        // Fetch all rows from the result set
+        $equipment = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $equipment;
+    }
+
+
     public function getError($error)
     {
         if (in_array($error, $this->errorArray)) {

@@ -1,26 +1,20 @@
-let PostAccountUrl = "Requestes/Account/PostAccount.php";
+let LoginUrl = "Requestes/Account/Login.php";
 
-const createbtn = document.getElementById("createBtn");
-createbtn.addEventListener("click", (e) => {
+const loginBtn = document.getElementById("loginBtn");
+loginBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const typeId = document.getElementById("userType").value;
-  const equipmentID = document.getElementById("equipment").value;
 
   const requestData = {
     username: username,
     password: password,
-    email: email,
-    typeId: typeId,
-    equipmentID: equipmentID,
   };
 
   async function create() {
     try {
-      const response = await axios.post(PostAccountUrl, requestData, {
+      const response = await axios.post(LoginUrl, requestData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -28,7 +22,16 @@ createbtn.addEventListener("click", (e) => {
 
       const data = response.data;
       data.success
-        ? showToastr("success", `Done`, false, true, "3000")
+        ? (showToastr(
+            "success",
+            `Welcome back, ${username}`,
+            false,
+            true,
+            "3000"
+          ),
+          setTimeout(function () {
+            window.location.href = "index.php"; // Replace "index.php" with the URL of your index page
+          }, 3000))
         : showToastr("error", `${data.message}`, false, true, "3000");
     } catch (error) {
       console.error("Error:", error);
