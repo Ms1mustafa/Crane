@@ -76,6 +76,20 @@ class Account
 
     }
 
+    public function getByUserToken($token, $get)
+    {
+        $query = $this->con->prepare("SELECT $get FROM users WHERE token = :token");
+
+        $query->bindValue(":token", $token);
+        // $query->bindValue(":get", $get);
+
+        $query->execute();
+
+        $account = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $account;
+    }
+
     public function getError($error)
     {
         if (in_array($error, $this->errorArray)) {

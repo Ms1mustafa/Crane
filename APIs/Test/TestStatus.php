@@ -2,7 +2,7 @@
 
 include_once('../../Helpers/Constants.php');
 include_once('Validation.php');
-class TestTypestatus
+class TestStatus
 {
     private $con;
     private $currentDateTime;
@@ -17,7 +17,7 @@ class TestTypestatus
     public function create($equipmentID, $status)
     {
 
-        $query = $this->con->prepare("INSERT INTO tests_type_status (equipmentID, status ,date) VALUES (:equipmentID, :status, :currentDateTime)");
+        $query = $this->con->prepare("INSERT INTO tests_status (equipmentID, status ,date) VALUES (:equipmentID, :status, :currentDateTime)");
 
         $validation = new Validation($this->con, $this->errorArray);
 
@@ -35,7 +35,7 @@ class TestTypestatus
 
     public function get()
     {
-        $sql = "SELECT * FROM tests_type_status";
+        $sql = "SELECT * FROM tests_status";
 
         $query = $this->con->prepare($sql);
 
@@ -46,10 +46,10 @@ class TestTypestatus
         return $testsType;
     }
 
-    public function geTestTypeStatusTody()
+    public function geTestStatusTody()
     {
 
-        $sql = "SELECT * FROM tests_type_status WHERE DATE(date) = DATE(:currentDateTime)";
+        $sql = "SELECT * FROM tests_status WHERE DATE(date) = DATE(:currentDateTime)";
 
         $query = $this->con->prepare($sql);
 

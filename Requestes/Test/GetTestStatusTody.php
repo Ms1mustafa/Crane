@@ -2,7 +2,7 @@
 include('../../includes/config.php');
 include('../../Helpers/Tools.php');
 include('../../Helpers/LimitRequests.php');
-include('../../APIs/Test/TestTypestatus.php');
+include('../../APIs/Test/TestStatus.php');
 
 $maxRequestsPerMinute = 25;
 
@@ -11,9 +11,9 @@ if (!LimitRequests::checkRateLimit($maxRequestsPerMinute)) {
     exit;
 }
 
-$testTypestatus = new TestTypestatus($con);
+$testStatus = new TestStatus($con);
 
-$success = $testTypestatus->geTestTypeStatusTody();
+$success = $testStatus->geTestStatusTody();
 
 if ($success) {
     echo json_encode(array('success' => true, 'data' => $success));

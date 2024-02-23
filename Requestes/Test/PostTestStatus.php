@@ -2,7 +2,7 @@
 include('../../includes/config.php');
 include('../../Helpers/Tools.php');
 include('../../Helpers/LimitRequests.php');
-include('../../APIs/Test/TestTypeStatus.php');
+include('../../APIs/Test/TestStatus.php');
 
 $maxRequestsPerMinute = 15;
 
@@ -11,18 +11,18 @@ if (!LimitRequests::checkRateLimit($maxRequestsPerMinute)) {
     exit;
 }
 
-$testTypeStatus = new TestTypeStatus($con);
+$testStatus = new TestStatus($con);
 
 $equipmentID = @$_POST["equipmentID"];
 $status = @$_POST["status"];
 
-$success = $testTypeStatus->create($equipmentID, $status);
+$success = $testStatus->create($equipmentID, $status);
 
 if ($success === true) {
     echo json_encode(array('success' => true));
 } else {
     $errorMessage =
-        $testTypeStatus->getError(constants::$fildsRequired) ??
+        $testStatus->getError(constants::$fildsRequired) ??
         'Something went wrong. Please try again';
 
     echo json_encode(array('success' => false, 'message' => $errorMessage ?? 'Something went wrong. Please try again'));
