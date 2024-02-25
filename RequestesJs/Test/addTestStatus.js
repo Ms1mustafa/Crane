@@ -10,6 +10,7 @@ function checkedTests() {
   return allChecked;
 }
 
+//***************Get Equipment ID************************ */
 function getEquipmentID() {
   const url = new URL(window.location.href);
 
@@ -26,12 +27,50 @@ function getEquipmentID() {
 
 getEquipmentID();
 
+//***************Get User Test Status Today************************ */
+let submited = false;
+async function GeUserTestStatusTody() {
+  let GeUserTestStatusTodyUrl = "Requestes/Test/GeUserTestStatusTody.php";
+
+  const requestData = {
+    equipmentID: getEquipmentID(),
+  };
+
+  try {
+    const response = await axios.post(GeUserTestStatusTodyUrl, requestData, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    const data = response.data;
+    return data.success ? (submited = true) : (submited = false);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+GeUserTestStatusTody();
+
 //***************Add Test Status************************ */
 const postTestStatusUrl = "Requestes/Test/postTestStatus.php";
 
 const submitBtn = document.getElementById("submitBtn");
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  GeUserTestStatusTody();
+  if (submited) {
+    showToastr(
+      "error",
+      `you already submited the form today`,
+      false,
+      true,
+      "3000"
+    );
+    setTimeout(function () {
+      window.location.href = "index.php";
+    }, 3000);
+    return;
+  }
 
   const equipmentID = getEquipmentID();
   const status = checkedTests() ? "available" : "unavailable";
@@ -50,9 +89,14 @@ submitBtn.addEventListener("click", (e) => {
       });
 
       const data = response.data;
-      data.success
-        ? showToastr("success", `Done`, false, false, "3000")
-        : showToastr("error", `${data.message}`, false, false, "3000");
+      if (data.success) {
+        showToastr("success", `Done`, false, true, "3000");
+        setTimeout(function () {
+          window.location.href = "index.php";
+        }, 3000);
+      } else {
+        showToastr("error", `${data.message}`, false, false, "3000");
+      }
     } catch (error) {
       console.error("Error:", error);
     }

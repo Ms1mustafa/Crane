@@ -1,3 +1,34 @@
+async function GetUserEquipment() {
+  let GetUserEquipmentUrl = "Requestes/Account/GetUserEquipment.php";
+
+  const token = getTokenFromCookies();
+
+  const requestData = {
+    token: token,
+  };
+
+  try {
+    const response = await axios.post(GetUserEquipmentUrl, requestData, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    const data = response.data;
+    if (data.success) {
+      return data.data.equipmentID === getEquipmentID()
+        ? ""
+        : (window.location.href = "index.php");
+    } else {
+      return;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+GetUserEquipment();
+
 const GetTest = "Requestes/Test/GetTest.php";
 
 async function Get(requestData, priority) {

@@ -1,17 +1,4 @@
-let LoginUrl = "Requestes/Account/Login.php";
-
-const loginBtn = document.getElementById("loginBtn");
-loginBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-
-  const requestData = {
-    username: username,
-    password: password,
-  };
-
+function login(LoginUrl, requestData) {
   async function create() {
     try {
       const response = await axios.post(LoginUrl, requestData, {
@@ -24,7 +11,7 @@ loginBtn.addEventListener("click", (e) => {
       data.success
         ? (showToastr(
             "success",
-            `Welcome back, ${username}`,
+            `Welcome back, ${requestData.username}`,
             false,
             true,
             "3000"
@@ -37,6 +24,22 @@ loginBtn.addEventListener("click", (e) => {
       console.error("Error:", error);
     }
   }
-
   create();
+}
+
+const loginBtn = document.getElementById("loginBtn");
+loginBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  let LoginUrl = "Requestes/Account/Login.php";
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const requestData = {
+    username: username,
+    password: password,
+  };
+
+  login(LoginUrl, requestData);
 });

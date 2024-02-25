@@ -6,7 +6,7 @@ include('../../APIs/Account/Account.php');
 
 $account = new Account($con);
 
-$token = @$_POST["token"];
+$token = Encryption::decryptToken(@$_POST["token"], constants::$tokenEncKey);
 
 $success = $account->getByUserToken($token, 'equipmentID');
 

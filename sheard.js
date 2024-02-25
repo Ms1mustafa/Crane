@@ -5,6 +5,7 @@ function showToastr(status, title, closeButton, progressBar, timeOut) {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
+    showCloseButton: closeButton,
     timer: timeOut,
     timerProgressBar: progressBar,
     didOpen: (toast) => {

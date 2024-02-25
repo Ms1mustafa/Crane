@@ -85,7 +85,7 @@ class Account
 
         $query->execute();
 
-        $account = $query->fetchAll(PDO::FETCH_ASSOC);
+        $account = $query->fetch(PDO::FETCH_ASSOC);
 
         return $account;
     }

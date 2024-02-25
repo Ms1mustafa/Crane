@@ -62,6 +62,22 @@ class TestStatus
         return $testsType;
     }
 
+    public function geUserTestStatusTody($equipmentID)
+    {
+
+        $sql = "SELECT * FROM tests_status WHERE DATE(date) = DATE(:currentDateTime) AND equipmentID = :equipmentID";
+
+        $query = $this->con->prepare($sql);
+
+        $query->bindValue(":currentDateTime", $this->currentDateTime);
+        $query->bindValue(":equipmentID", $equipmentID);
+
+        $query->execute();
+
+        $response = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $response;
+    }
 
     public function getError($error)
     {
