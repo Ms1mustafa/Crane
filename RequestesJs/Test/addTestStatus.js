@@ -104,9 +104,11 @@ submitBtn.addEventListener("click", (e) => {
         );
 
         showToastr("success", `Done`, false, true, "3000");
-        // setTimeout(function () {
-        //   window.location.href = "index.php";
-        // }, 3000);
+        //disble button
+        submitBtn.disabled = true;
+        setTimeout(function () {
+          window.location.href = "index.php";
+        }, 3000);
       } else {
         showToastr("error", `${data.message}`, false, false, "3000");
       }
