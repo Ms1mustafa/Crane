@@ -91,7 +91,7 @@ submitBtn.addEventListener("click", (e) => {
       const data = response.data;
       if (data.success) {
         const NotificationData = {
-          receiver_token: "Rr1ru1Ce5bueqe2",
+          receiverType: "operation",
           url: "rana.com",
           data: {
             equipment_name: "test",

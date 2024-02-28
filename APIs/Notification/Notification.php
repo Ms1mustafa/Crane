@@ -45,4 +45,24 @@ class Notification
             return false;
     }
 
+    public function getNotification($token)
+    {
+        $query = $this->con->prepare("SELECT * FROM notifications WHERE receiver_token = :token AND status = 'active' ORDER BY start_date DESC");
+
+        $query->bindValue(":token", $token);
+
+        $query->execute();
+
+        $notification = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $notification;
+    }
+
+    public function getError($error)
+    {
+        if (in_array($error, $this->errorArray)) {
+            return $error;
+        }
+    }
+
 }

@@ -3,24 +3,16 @@ include('../../includes/config.php');
 include('../../Helpers/Tools.php');
 include('../../Helpers/Encryption.php');
 include('../../APIs/Account/Account.php');
-include('../../APIs/UserType/UserType.php');
+include('../../APIs/Notification/Notification.php');
 
 $account = new Account($con);
+$notification = new Notification($con);
 
 $id = null;
-$token = Encryption::decryptToken(@$_POST["token"], constants::$tokenEncKey);
+// $token = Encryption::decryptToken(@$_POST["token"], constants::$tokenEncKey);
+$token = 'Rr1ru1Ce5bueqe2';
 
-$success = $account->getBy('typeId', 'token', $token);
-
-if ($success) {
-    $id = $success['typeId'];
-} else {
-
-}
-
-$userType = new UserType($con);
-
-$success = $userType->getBy('name', 'id', $id);
+$success = $notification->getNotification($token);
 
 if ($success) {
     echo json_encode(array('success' => true, 'data' => $success));

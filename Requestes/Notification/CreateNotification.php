@@ -20,7 +20,7 @@ $notification = new Notification($con);
 $token = Tools::generateUniqueToken();
 
 //Get receiver token
-$typeId = $userType->getBy('id', 'name', $_POST['typeName'])['id'];
+$typeId = $userType->getBy('id', 'name', $_POST['receiverType'])['id'];
 $receiver_token = $account->getBy('token', 'typeId', $typeId)['token'];
 
 $sender_token = Encryption::decryptToken(@$_COOKIE["token"], constants::$tokenEncKey);
