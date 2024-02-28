@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="RequestesJs/Test/getTest.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="sheard.js" defer></script>
+  <script src="RequestesJs/Notification/createNotification.js" defer></script>
+  <script src="RequestesJs/Test/getData.js" defer></script>
+  <script src="RequestesJs/Test/addTestStatus.js" defer></script>
   <title>Document</title>
   <link rel="stylesheet" href="css/table.css?1999">
 
@@ -196,7 +201,7 @@
   <br>
   <div class="buttonDriver">
     <div>
-      <button class="btn-reqDriver">Subment </button>
+      <button class="btn-reqDriver" id="submitBtn">Subment </button>
 
 
 

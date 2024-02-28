@@ -1,4 +1,5 @@
 <?php
-setcookie('token', '', -1, '/');
+setcookie('token', '', time() - 3600, '/');
+
 header("location: login.php");
 exit();

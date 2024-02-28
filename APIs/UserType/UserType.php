@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../Helpers/Constants.php');
-include_once('Validation.php');
+include_once('UserTypeValidation.php');
 class UserType
 {
     private $con;
@@ -17,7 +17,7 @@ class UserType
 
         $query = $this->con->prepare("INSERT INTO users_type (name) VALUES (:name)");
 
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new UserTypeValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$name]);
         $validation->validateName($name);
@@ -60,6 +60,19 @@ class UserType
 
         // Return the user types
         return $userTypes;
+    }
+
+    public function getBy($get, $by, $value)
+    {
+        $query = $this->con->prepare("SELECT $get FROM users_type WHERE $by = :value");
+
+        $query->bindValue(":value", $value);
+
+        $query->execute();
+
+        $account = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $account;
     }
 
     public function getError($error)

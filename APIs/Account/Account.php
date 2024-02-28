@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../Helpers/Constants.php');
-include_once('Validation.php');
+include_once('AccountValidation.php');
 class Account
 {
     private $con;
@@ -17,7 +17,7 @@ class Account
 
         $query = $this->con->prepare("INSERT INTO users (token, username ,email, password, typeId, equipmentID) VALUES (:token, :username, :email, :password, :typeId, :equipmentID)");
 
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new AccountValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$token, $username, $email, $password, $typeId]);
         $validation->validateToken($token);
@@ -46,7 +46,7 @@ class Account
     public function login($username, $password)
     {
         $query = $this->con->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new AccountValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$username, $password]);
         $validation->validateUsernameExists($username);
@@ -81,7 +81,19 @@ class Account
         $query = $this->con->prepare("SELECT $get FROM users WHERE token = :token");
 
         $query->bindValue(":token", $token);
-        // $query->bindValue(":get", $get);
+
+        $query->execute();
+
+        $account = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $account;
+    }
+
+    public function getBy($get, $by, $value)
+    {
+        $query = $this->con->prepare("SELECT $get FROM users WHERE $by = :value");
+
+        $query->bindValue(":value", $value);
 
         $query->execute();
 

@@ -90,10 +90,23 @@ submitBtn.addEventListener("click", (e) => {
 
       const data = response.data;
       if (data.success) {
+        const NotificationData = {
+          receiver_token: "Rr1ru1Ce5bueqe2",
+          url: "rana.com",
+          data: {
+            equipment_name: "test",
+            description: "rrrr",
+          },
+        };
+        createNotification(
+          "Requestes/Notification/createNotification.php",
+          NotificationData
+        );
+
         showToastr("success", `Done`, false, true, "3000");
-        setTimeout(function () {
-          window.location.href = "index.php";
-        }, 3000);
+        // setTimeout(function () {
+        //   window.location.href = "index.php";
+        // }, 3000);
       } else {
         showToastr("error", `${data.message}`, false, false, "3000");
       }
