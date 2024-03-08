@@ -31,4 +31,8 @@ class Tools
         return $date->format('Y-m-d');
     }
 
+    public function getURLParam($param)
+    {
+        return $_GET[$param];
+    }
 }

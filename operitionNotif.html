@@ -4,9 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <link href="css/notification.css" rel="stylesheet">
   <link rel="stylesheet" href="css/Navebar.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="sheard.js" defer></script>
+  <script src="RequestesJs/Notification/getNotification.js" defer></script>
 
   <title>Notifications page</title>
   <style>
@@ -27,12 +35,12 @@
 
   </div>
   <div>
-    <a class="Back" href="Logout">
+    <a class="Back" href="logout.php">
       <i class="fa-solid fa-arrow-left"></i> Logout</a>
   </div>
 
- 
-              <!----------------
+
+  <!----------------
                 الاشعارات الاولى من السائق  عباره عن  
                 1-اسم السائق 
                 2-اسم المعدة
@@ -40,7 +48,7 @@
                 4- الحاله 
                 من يفتح الاشعارات تطلعله كافة تفاصيل المعده بالتفصيل 
                 ----------->
-                <!------
+  <!------
                 الاشعارات الثانيه من  السائق  من يبلش شغل ويضغط ستارت 
               1-اسم السائق 
             2-اسم المعده
@@ -49,14 +57,14 @@
 
 
         -  -->
-         <!------
+  <!------
                 الاشعارات الثالثه  من  السائق  من يخاص شغل ويضغط ايند 
               1-اسم السائق 
             2-اسم المعده
           3- الدسكريشن 
           
         -  -->
-         <!------
+  <!------
                 الاشعارات الرابعه   من  السائق  من يكنسل شغل ويضغط كانسل 
               1-اسم السائق 
             2-اسم المعده
@@ -68,70 +76,38 @@
           2-Return to the driver 
           
         -  -->
-        <!----------الاشعارات الخامسه تجيه من تراكر    من يكمل شغل  
+  <!----------الاشعارات الخامسه تجيه من تراكر    من يكمل شغل  
         1- تطلعله اسم المنفذ
       2-رقم طلب مال صيانه 
     3-دسكربشن الي كاتبه سبب العطل 
   4- الحالهDone-->
-        <!--------------اكيد بعد مايقتح اي عمليه تختفي الاشعارات -->
-        <div class="container">
-          <div class="app">
-            <div class="header">
-              <h2><span class="title">Notifications</span> <span class="unread-notification-number">1</span></h2>
+  <!--------------اكيد بعد مايقتح اي عمليه تختفي الاشعارات -->
+  <div class="container">
+    <div class="app">
+      <div class="header">
+        <h2><span class="title">Notifications</span> <span class="unread-notification-number"
+            id="notificationNumber">0</span></h2>
+      </div>
+      <div class="body">
+        <div class="notification unreaded">
+
+          <div class="text">
+            <div class="text-top">
+              <p><span class="profil-name" id="username"></span>
+              </p>
             </div>
-            <div class="body">
-              <div class="notification unreaded">
-      
-                <div class="text">
-                  <div class="text-top">
-                    <p><span class="profil-name">Mohamed</span>
-                    </p>
-                  </div>
-                  <br>
-                  <p><a href="opertion.html">All Type Aset</a></p>
-                </div>
-              </div>
-              <div class="body">
-                <div class="notification unreaded">
-                  <div class="avatar"><img src="assets/images/lafarge.png"></div>
-                  <div class="text">
-                    <div class="text-top">
-                      <p><span class="profil-name">Rana Khalid</span>
-                      </p>
-                      <div>
-                        <p>reacted to your recent post </p>
-                      </div>
-      
-                      <br>
-                      <div>
-                        <p>Tatel</p>
-                      </div>
-                      <br>
-                      <div>
-                        <p>Req Num<span class="unread-dot"></span> </p>
-                      </div>
-                      <br>
-      
-                      <div>
-                        <p>Area </p>
-                      </div>
-                      <br>
-      
-                      <div>
-                        <p>Location</p>
-                      </div>
-                      <br>
-      
-                    </div>
-                    <div class="text-bottom"> 1m ago</div>
-                  </div>
-                </div>
-                <div class="attribution">
-      
-                  <p> 2024 lafarge</p>
-                </div>
-              </div>
-              <script src="/template_admin_html/js/script.js"></script>
-      </body>
-      
-      </html>
+
+            <p><a href="opertion.html">All Type Aset</a></p>
+          </div>
+        </div>
+        <div class="body">
+          <div id="notification_detail">
+          </div>
+          <div class="attribution">
+
+            <p> 2024 lafarge</p>
+          </div>
+        </div>
+</body>
+
+</html>

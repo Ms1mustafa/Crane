@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../Helpers/Constants.php');
-include_once('Validation.php');
+include_once('EquipmentValidation.php');
 class Equipment
 {
     private $con;
@@ -17,7 +17,7 @@ class Equipment
 
         $query = $this->con->prepare("INSERT INTO equipment (token, asset_type ,description, vechicle_no, owner, asset_number) VALUES (:token, :asset_type, :description, :vechicle_no, :owner, :asset_number)");
 
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new EquipmentValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$token, $asset_type, $description, $vechicle_no, $owner, $asset_number]);
         $validation->validateToken($token);
@@ -59,6 +59,20 @@ class Equipment
         return $equipment;
     }
 
+    public function getBy($get, $by, $value)
+    {
+        $sql = "SELECT $get FROM equipment WHERE $by = :value ";
+
+        $query = $this->con->prepare($sql);
+
+        $query->bindValue(":value", $value);
+
+        $query->execute();
+
+        $equipment = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $equipment;
+    }
 
     public function getError($error)
     {

@@ -9,8 +9,8 @@ $account = new Account($con);
 $notification = new Notification($con);
 
 $id = null;
-// $token = Encryption::decryptToken(@$_POST["token"], constants::$tokenEncKey);
-$token = 'Rr1ru1Ce5bueqe2';
+$token = Encryption::decryptToken(@$_COOKIE["token"], constants::$tokenEncKey);
+// $token = 'Rr1ru1Ce5bueqe2';
 
 $success = $notification->getNotification($token);
 

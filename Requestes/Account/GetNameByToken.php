@@ -7,12 +7,11 @@ include('../../APIs/Account/Account.php');
 $account = new Account($con);
 
 $token = Encryption::decryptToken(@$_POST["token"], constants::$tokenEncKey);
-$get = @$_POST["get"];
 
-$success = $account->getByUserToken($token, $get);
+$success = $account->getByUserToken($token, 'username');
 
 if ($success) {
-    echo json_encode(array('success' => true, 'data' => $success));
+    echo json_encode(array('success' => true, 'data' => $success['username']));
 } else {
     echo json_encode(array('success' => false, 'data' => $success));
 }

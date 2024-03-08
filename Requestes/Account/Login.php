@@ -23,7 +23,7 @@ if ($success) {
     $token = $success[0]['token'];
     $hashedToken = Encryption::encryptToken($token, constants::$tokenEncKey);
     setcookie('token', $hashedToken, time() + (86400 * 365), "/");
-    echo json_encode(array('success' => true, 'data' => $success));
+    echo json_encode(['success' => true, 'data' => $success]);
 } else {
     $errorMessage =
         $account->getError(constants::$fildsRequired) ??

@@ -5,6 +5,7 @@ async function GetUserEquipment() {
 
   const requestData = {
     token: token,
+    get: "equipmentID",
   };
 
   try {

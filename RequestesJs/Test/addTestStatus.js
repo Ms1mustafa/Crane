@@ -27,6 +27,36 @@ function getEquipmentID() {
 
 getEquipmentID();
 
+//***************Get Equipment************************ */
+
+async function GetUserEquipment() {
+  let GetUserEquipmentUrl = "Requestes/Equipment/GetEquipmentByUserToken.php";
+
+  const token = getTokenFromCookies();
+
+  const requestData = {
+    token: token,
+    // get: "*",
+  };
+
+  try {
+    const response = await axios.post(GetUserEquipmentUrl, requestData, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    const data = await response.data;
+    if (data.success) {
+      return data.data.token;
+    } else {
+      return;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 //***************Get User Test Status Today************************ */
 let submited = false;
 async function GeUserTestStatusTody() {
@@ -73,7 +103,7 @@ submitBtn.addEventListener("click", (e) => {
   }
 
   const equipmentID = getEquipmentID();
-  const status = checkedTests() ? "available" : "unavailable";
+  const status = checkedTests() ? "accepted" : "rejected";
 
   const requestData = {
     equipmentID: equipmentID,
@@ -92,11 +122,11 @@ submitBtn.addEventListener("click", (e) => {
       if (data.success) {
         const NotificationData = {
           receiverType: "operation",
-          url: "rana.com",
-          data: {
-            equipment_name: "test",
-            description: "rrrr",
-          },
+          url: "equipmenDetail.html",
+          // data: {
+          //   equipment_name: "test",
+          //   description: "rrrr",
+          // },
         };
         createNotification(
           "Requestes/Notification/createNotification.php",

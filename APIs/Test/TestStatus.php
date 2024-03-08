@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../Helpers/Constants.php');
-include_once('Validation.php');
+include_once('TestValidation.php');
 class TestStatus
 {
     private $con;
@@ -19,7 +19,7 @@ class TestStatus
 
         $query = $this->con->prepare("INSERT INTO tests_status (equipmentID, status ,date) VALUES (:equipmentID, :status, :currentDateTime)");
 
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new TestValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$equipmentID, $status]);
 
@@ -75,6 +75,22 @@ class TestStatus
         $query->execute();
 
         $response = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $response;
+    }
+
+    public function getByDate($date, $equipmentID)
+    {
+        $sql = "SELECT status FROM tests_status WHERE DATE(date) = DATE(:date) AND equipmentID = :equipmentID";
+
+        $query = $this->con->prepare($sql);
+
+        $query->bindValue(":date", $date);
+        $query->bindValue(":equipmentID", $equipmentID);
+
+        $query->execute();
+
+        $response = $query->fetch(PDO::FETCH_ASSOC);
 
         return $response;
     }

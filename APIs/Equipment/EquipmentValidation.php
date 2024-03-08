@@ -1,5 +1,5 @@
 <?php
-class Validation
+class EquipmentValidation
 {
     private $con;
     private $errorArray = array();

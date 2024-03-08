@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../Helpers/Constants.php');
-include_once('Validation.php');
+include_once('TestValidation.php');
 class Test
 {
     private $con;
@@ -17,7 +17,7 @@ class Test
 
         $query = $this->con->prepare("INSERT INTO tests_type (token, priority ,name) VALUES (:token, :priority, :name)");
 
-        $validation = new Validation($this->con, $this->errorArray);
+        $validation = new TestValidation($this->con, $this->errorArray);
 
         $validation->validateEmpty([$token, $priority, $name]);
         $validation->validateToken($token);

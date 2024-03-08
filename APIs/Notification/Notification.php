@@ -47,9 +47,22 @@ class Notification
 
     public function getNotification($token)
     {
-        $query = $this->con->prepare("SELECT * FROM notifications WHERE receiver_token = :token AND status = 'active' ORDER BY start_date DESC");
+        $query = $this->con->prepare("SELECT * FROM notifications WHERE receiver_token = :token AND status = 'active' ORDER BY 'start_date' DESC");
 
         $query->bindValue(":token", $token);
+
+        $query->execute();
+
+        $notification = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $notification;
+    }
+
+    public function getBy($get, $by, $value)
+    {
+        $query = $this->con->prepare("SELECT $get FROM notifications WHERE $by = :value");
+
+        $query->bindValue(":value", $value);
 
         $query->execute();
 
