@@ -12,7 +12,7 @@ $id = null;
 $token = Encryption::decryptToken(@$_COOKIE["token"], constants::$tokenEncKey);
 // $token = 'Rr1ru1Ce5bueqe2';
 
-$success = $notification->getNotification($token);
+$success = $notification->getNotification($token, true);
 
 if ($success) {
     echo json_encode(array('success' => true, 'data' => $success));

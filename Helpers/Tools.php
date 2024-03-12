@@ -25,14 +25,18 @@ class Tools
         return $inputText;
     }
 
-    public function getDateOnly($dateTime)
+    public static function getDateOnly($dateTime)
     {
         $date = new DateTime($dateTime);
         return $date->format('Y-m-d');
     }
 
-    public function getURLParam($param)
+    public static function getURLParam($param)
     {
         return $_GET[$param];
+    }
+    public static function getFromCookie($param)
+    {
+        return $_COOKIE[$param];
     }
 }

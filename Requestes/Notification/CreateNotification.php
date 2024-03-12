@@ -22,16 +22,15 @@ $equipment = new Equipment($con);
 $token = Tools::generateUniqueToken();
 
 //Get receiver token
-$typeId = $userType->getBy('id', 'name', $_POST['receiverType'])['id'];
-$receiver_token = $account->getBy('token', 'typeId', $typeId)['token'];
+$typeId = @$userType->getBy('id', 'name', @$_POST['receiverType'])['id'];
 
 //Get Equipment by User token
 $userToken = Encryption::decryptToken(@$_COOKIE["token"], constants::$tokenEncKey);
 
-$equipmentSuccess = $account->getByUserToken($userToken, 'equipmentID');
-$equipmentId = $equipmentSuccess['equipmentID'];
+$equipmentSuccess = @$account->getByUserToken($userToken, 'equipmentID');
+$equipmentId = @$equipmentSuccess['equipmentID'];
 
-$equipment_token = $equipment->getBy('*', 'id', $equipmentId);
+$equipment_token = @$equipment->getBy('*', 'id', $equipmentId);
 
 //API Info
 $sender_token = Encryption::decryptToken(@$_COOKIE["token"], constants::$tokenEncKey);
@@ -39,10 +38,12 @@ $username = $account->getByUserToken($sender_token, "username")["username"];
 $url = @$_POST["url"] . '?noti=' . Encryption::encryptToken($token, constants::$tokenEncKey);
 $data = @$_POST["data"];
 
-if ($equipment_token) {
-    $data['equipment_token'] = $equipment_token[0]['token'];
-    $data['asset_type'] = $equipment_token[0]['asset_type'];
-    $data['description'] = $equipment_token[0]['description'];
+$receiver_token = @$_POST['receiver_token'] ?? $account->getBy('token', 'typeId', $typeId)['token'];
+
+if (@$equipment_token) {
+    $data['equipment_token'] = @$equipment_token[0]['token'];
+    $data['asset_type'] = @$equipment_token[0]['asset_type'];
+    $data['description'] = @$equipment_token[0]['description'];
 }
 
 $success = $notification->create($token, $sender_token, $receiver_token, $username, $url, $data);

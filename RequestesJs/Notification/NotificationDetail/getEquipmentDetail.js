@@ -9,7 +9,7 @@ const requestData = {
 
 const notificationDetail = document.getElementById("notification_detail");
 
-async function getEquipmentDetai() {
+async function getEquipmentDetail() {
   try {
     const response = await axios.post(getEquipmentDetailURL, requestData, {
       headers: {
@@ -21,6 +21,7 @@ async function getEquipmentDetai() {
     if (data.success) {
       const notification = data.data;
       const equipment = data.data2;
+      const receiver_type = data.receiver_Type.name;
       notificationDetail.innerHTML = "";
 
       const htmlString = `
@@ -79,22 +80,46 @@ async function getEquipmentDetai() {
                     equipment.equipmentStatus
                   )}</span>
                 </p>
-                <button class="btn solid">${
-                  equipment.equipmentStatus === "accepted"
-                    ? "Send to Requester"
-                    : ".."
+                <button type="button" class="btn solid" 
+                ${receiver_type === "operation" ? "id= sendToRequester" : ""}
+                ${
+                  receiver_type === "operation"
+                    ? `onclick="sendToRequester(this)"`
+                    : ""
+                }
+                >${
+                  receiver_type === "operation"
+                    ? equipment.equipmentStatus === "accepted"
+                      ? "Send to Requester"
+                      : "Rejected"
+                    : receiver_type === "requester"
+                    ? equipment.equipmentStatus === "accepted"
+                      ? "exit"
+                      : "test"
+                    : ""
                 }</button>
               </div>
             </div>
           </div>
         `;
+
       notificationDetail.insertAdjacentHTML("afterbegin", htmlString);
+      return notification;
     } else {
-      showToastr("error", `Error happened!`, false, false, "3000");
+      showToastr(
+        "error",
+        data.message ?? `Error happened!`,
+        false,
+        false,
+        "3000"
+      );
+      setTimeout(function () {
+        window.location.href = "operitionNotif.html";
+      }, 3000);
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-getEquipmentDetai();
+getEquipmentDetail();
