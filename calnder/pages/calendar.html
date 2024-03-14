@@ -64,21 +64,13 @@
                     <div class="card-body">
                       <!-- the events -->
                       <div id="external-events">
-                        <div class="external-event bg-success">Name User</div>
-                        <div class="external-event bg-warning">Rq NO</div>
-                        <div class="external-event bg-primary">Type aset</div>
+                        <div class="bg-success">Name User</div>
+                        <div class="bg-warning">Rq NO</div>
+                        <div class="bg-primary">Type aset</div>
                        <input type="text" placeholder="Aera">
                         <input type="text" placeholder="Location">
                         <input type="text" placeholder="WorkType">
                        <input type="time" placeholder="Time Book">
-                        
-                       
-                        <div class="checkbox">
-                          <label for="drop-remove">
-                            <input type="checkbox" id="drop-remove" />
-                            remove after drop
-                          </label>
-                        </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
@@ -323,8 +315,8 @@
               borderColor: "#3c8dbc", //Primary (light-blue)
             },
           ],
-          editable: true,
-          droppable: true, // this allows things to be dropped onto the calendar !!!
+          editable: false,
+          droppable: false, // this allows things to be dropped onto the calendar !!!
           drop: function (info) {
             // is the "remove after drop" checkbox checked?
             if (checkbox.checked) {
