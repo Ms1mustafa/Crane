@@ -48,7 +48,9 @@ async function Get(requestData, priority) {
         acceptRadio.type = "radio";
         acceptRadio.name = type.token;
         acceptRadio.value = "0";
-        acceptRadio.className = "radio";
+        acceptRadio.className = `radio ${
+          type.priority === "high" ? "high" : ""
+        }`;
         const acceptTd = document.createElement("td");
         acceptTd.appendChild(acceptRadio);
         tr.appendChild(acceptTd);
@@ -67,6 +69,7 @@ async function Get(requestData, priority) {
         tr.appendChild(nameTd);
         priority.appendChild(tr);
       });
+      console.log(data.data);
     } else {
       console.log("Error: " + data.message);
     }

@@ -1,7 +1,7 @@
 function checkedTests() {
   let allChecked = true;
 
-  document.querySelectorAll(".radio").forEach((radio) => {
+  document.querySelectorAll(".high").forEach((radio) => {
     if (radio.value === "1" && !radio.checked) {
       allChecked = false;
     }

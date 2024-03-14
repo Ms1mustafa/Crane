@@ -81,23 +81,44 @@ async function getEquipmentDetail() {
                   )}</span>
                 </p>
                 <button type="button" class="btn solid" 
-                ${receiver_type === "operation" ? "id= sendToRequester" : ""}
-                ${
-                  receiver_type === "operation"
-                    ? `onclick="sendToRequester(this)"`
-                    : ""
-                }
-                >${
-                  receiver_type === "operation"
-                    ? equipment.equipmentStatus === "accepted"
+                  ${
+                    receiver_type === "operation" &&
+                    equipment.equipmentStatus === "accepted"
+                      ? "id='sendToRequester'"
+                      : ""
+                  }
+                  ${
+                    receiver_type === "operation" &&
+                    equipment.equipmentStatus === "accepted"
+                      ? `onclick="sendToRequester(this)"`
+                      : ""
+                  }>
+                  
+                  ${
+                    receiver_type === "operation" &&
+                    equipment.equipmentStatus === "accepted"
                       ? "Send to Requester"
-                      : "Rejected"
-                    : receiver_type === "requester"
-                    ? equipment.equipmentStatus === "accepted"
-                      ? "exit"
-                      : "test"
-                    : ""
-                }</button>
+                      : ""
+                  }
+                  ${
+                    receiver_type === "operation" &&
+                    equipment.equipmentStatus !== "accepted"
+                      ? "Rejected"
+                      : ""
+                  }
+                  ${
+                    receiver_type === "requester" &&
+                    equipment.equipmentStatus === "accepted"
+                      ? "Book"
+                      : ""
+                  }
+                  ${
+                    receiver_type === "requester" &&
+                    equipment.equipmentStatus !== "accepted"
+                      ? "test"
+                      : ""
+                  }
+                </button>
               </div>
             </div>
           </div>

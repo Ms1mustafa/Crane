@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link href="css/notification.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/Navebar.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script src="sheard.js"></script>
+
+  <title>Notifications page</title>
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+
+<body>
+  <!--------------
+الاشعارات  تجي من الريكويستر من يسوس طلب  ويحجز ويكمل حجز يوصل اشعار للسائق المخصص لهاي المعده 
+1- اسم الطالب 
+2- رقم الطلب 
+3-Area
+4-Location
+
+ومن يفتح الاشعار تطلعله كافة التقاصيل الي هي نفس تفاصيل الاشعار بالاضاغه الى نوع العمل تفاصيل المعدة كامله + وقت الحجز 
+
+--><!---------------------
+الاشعارات الثانيه تجي من الاوبريشن يكله كمل شغل المعده ماتجتاج صيانه من يسوي كنسل 
+1- اسم السائق 
+2- اسم المعده
+3-الدسكربشن
+4-الكومنت الي اجاه من الاوبريشن انو متحتاج صيانه 
+كذلك يفتح طلب تطلعله كافة تقاصيل الطلب    -->
+
+  <div class="navebar">
+
+    <h2 class="NavMobil">Mobile equipmnt</h2>
+  </div>
+  <div>
+    <a class="Back" href="logout.php">
+      <i class="fa-solid fa-arrow-left"></i> Logout</a>
+  </div>
+
+  <div class="container">
+    <div class="app">
+      <div class="header">
+        <h2><span class="title">Notifications</span> <span class="unread-notification-number">1</span></h2>
+      </div>
+      <div class="body">
+        <div class="notification unreaded">
+
+          <div class="text">
+            <div class="text-top">
+              <p><span class="profil-name">Mohamed</span>
+              </p>
+            </div>
+
+            <p><a id="CheckForm" href="CheckDriver.html">Check Form</a></p>
+          </div>
+        </div>
+        <div class="body">
+          <div class="notification unreaded">
+            <div class="avatar"><img src="assets/images/lafarge.png"></div>
+            <div class="text">
+              <div class="text-top">
+                <p><span class="profil-name">Rana Khalid</span>
+                </p>
+                <div>
+                  <p>reacted to your recent post </p>
+                </div>
+
+
+                <div>
+                  <p>Tatel</p>
+                </div>
+
+                <div>
+                  <p>Req Num<span class="unread-dot"></span> </p>
+                </div>
+
+
+                <div>
+                  <p>Area </p>
+                </div>
+
+
+                <div>
+                  <p>Location</p>
+                </div>
+
+
+              </div>
+              <div class="text-bottom"> 1m ago</div>
+            </div>
+          </div>
+          <div class="attribution">
+
+            <p> 2024 lafarge</p>
+          </div>
+        </div>
+        <script src="/template_admin_html/js/script.js"></script>
+        <script>
+          const CheckForm = document.getElementById("CheckForm");
+          async function GetUserEquipment() {
+            let GetUserEquipmentUrl = "Requestes/Account/GetUserEquipment.php";
+
+            const token = getTokenFromCookies();
+
+            const requestData = {
+              token: token,
+              get: "equipmentID",
+            };
+
+            try {
+              const response = await axios.post(GetUserEquipmentUrl, requestData, {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              });
+
+              const data = response.data;
+              if (data.success) {
+                CheckForm.href = data.data.equipmentID ? "checkDriver.php?test=" + data.data.equipmentID : 'index.php';
+              } else {
+                return;
+              }
+            } catch (error) {
+              console.error("Error:", error);
+            }
+          }
+          GetUserEquipment()
+        </script>
+</body>
+
+</html>

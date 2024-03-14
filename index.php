@@ -2,6 +2,11 @@
 if (!@$_COOKIE["token"]) {
     header("location: login.php");
 }
+
+$pageURL = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+$pageURL .= $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+echo $pageURL;
 ?>
 
 <!DOCTYPE html>
