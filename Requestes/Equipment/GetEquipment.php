@@ -6,7 +6,8 @@ include('../../APIs/Equipment/Equipment.php');
 
 $equipment = new Equipment($con);
 
-$token = @$_POST["token"];
+$equipmentToken = @Tools::getURLParam('eq');
+$token = $equipmentToken ?? @$_POST["token"];
 // $get = @$_POST["get"];
 
 $equipmentSuccess = $equipment->getBy('*', 'token', $token);

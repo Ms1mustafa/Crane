@@ -92,7 +92,14 @@ async function getEquipmentDetail() {
                     equipment.equipmentStatus === "accepted"
                       ? `onclick="sendToRequester(this)"`
                       : ""
-                  }>
+                  }
+                  ${
+                    receiver_type === "requester" &&
+                    equipment.equipmentStatus === "accepted"
+                      ? `onclick="window.location.href='calnder/calendar.html?eq=${notification.equipment_token}'"`
+                      : ""
+                  }
+                  >
                   
                   ${
                     receiver_type === "operation" &&

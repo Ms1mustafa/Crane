@@ -14,7 +14,7 @@ async function getName() {
     );
 
     const data = response.data;
-    username.innerHTML = capitalizeFirst(data.data); // Corrected typo: "seccess" to "success"
+    username?.innerHTML = capitalizeFirst(data.data); // Corrected typo: "seccess" to "success"
   } catch (error) {
     console.error("Error:", error);
     throw error; // Rethrow the error to be caught by the caller
