@@ -1,7 +1,7 @@
 <?php
 
-include_once('../../Helpers/Constants.php');
-include_once('AccountValidation.php');
+include_once ('../../Helpers/Constants.php');
+include_once ('AccountValidation.php');
 class Account
 {
     private $con;
@@ -31,13 +31,13 @@ class Account
         $query->bindValue(":password", $password);
         $query->bindValue(":typeId", $typeId);
 
-        if (!empty($equipmentID)) {
+        if (!empty ($equipmentID)) {
             $query->bindValue(":equipmentID", $equipmentID);
         } else {
             $query->bindValue(":equipmentID", null, PDO::PARAM_NULL);
         }
 
-        if (empty($this->errorArray))
+        if (empty ($this->errorArray))
             return $query->execute();
         else
             return false;

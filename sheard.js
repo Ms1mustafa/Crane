@@ -35,6 +35,44 @@ function formatDate(inputDate) {
   }
 }
 
+//parse Date Time
+function parseDateTime(dateTimeString) {
+  const dateTimeParts = dateTimeString.split(" ");
+  const dateParts = dateTimeParts[0].split("-");
+  const timeParts = dateTimeParts[1].split(":");
+
+  const year = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const day = parseInt(dateParts[2], 10);
+
+  const hour = parseInt(timeParts[0], 10);
+  const minute = parseInt(timeParts[1], 10);
+
+  return { year, month, day, hour, minute };
+}
+
+// Format date time
+function formatDateTime(datetimeStr) {
+  var selectedDateTime = new Date(datetimeStr);
+  var year = selectedDateTime.getFullYear();
+  var month = ("0" + (selectedDateTime.getMonth() + 1)).slice(-2);
+  var day = ("0" + selectedDateTime.getDate()).slice(-2);
+  var hours = ("0" + selectedDateTime.getHours()).slice(-2);
+  var minutes = ("0" + selectedDateTime.getMinutes()).slice(-2);
+  var seconds = ("0" + selectedDateTime.getSeconds()).slice(-2);
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+// Example usage
+// const dateTimeString = "2024-03-05 00:01:27";
+// const { year, month, day, hour, minute } = parseDateTime(dateTimeString);
+// console.log("Year:", year);
+// console.log("Month:", month);
+// console.log("Day:", day);
+// console.log("Hour:", hour);
+// console.log("Minute:", minute);
+
 // first letter to uppercase
 function capitalizeFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

@@ -39,4 +39,22 @@ class Tools
     {
         return $_COOKIE[$param];
     }
+
+    public static function getFromDate($dateTime, $get)
+    {
+        $date = new DateTime($dateTime);
+
+        if ($get == 'year')
+            return $date->format('Y');
+        if ($get == 'month')
+            return $date->format('m');
+        if ($get == 'day')
+            return $date->format('d');
+        if ($get == 'hour')
+            return $date->format('H');
+        if ($get == 'minute')
+            return $date->format('i');
+        if ($get == 'second')
+            return $date->format('s');
+    }
 }

@@ -23,5 +23,7 @@ class Constants
     public static $vechicle_noTaken = "Vechicle number already in use";
     public static $asset_numberTaken = "Asset number already in use";
 
+    //********Appointment ************* */
+    public static $timeTaken = "Time already in use";
 }
 ?>

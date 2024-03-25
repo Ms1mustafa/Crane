@@ -1,7 +1,7 @@
 <?php
 
-include_once('../../Helpers/Constants.php');
-include_once('NotificationValidation.php');
+include_once ('../../Helpers/Constants.php');
+include_once ('NotificationValidation.php');
 
 class Notification
 {
@@ -18,8 +18,8 @@ class Notification
     public function create($token, $sender_token, $receiver_token, $username, $url, $data = array())
     {
         // Prepare the SQL query
-        $columnNames = !empty($data) ? ", " . implode(", ", array_keys($data)) : "";
-        $columnPlaceholders = !empty($data) ? ", :" . implode(", :", array_keys($data)) : "";
+        $columnNames = !empty ($data) ? ", " . implode(", ", array_keys($data)) : "";
+        $columnPlaceholders = !empty ($data) ? ", :" . implode(", :", array_keys($data)) : "";
         $query = $this->con->prepare("INSERT INTO notifications (token, sender_token, receiver_token, username, url, start_date $columnNames) VALUES (:token, :sender_token, :receiver_token, :username, :url, :currentDateTime $columnPlaceholders)");
 
         $validation = new NotificationValidation($this->con, $this->errorArray);
@@ -35,14 +35,14 @@ class Notification
         $query->bindValue(":currentDateTime", $this->currentDateTime);
 
         // Bind data values if $data is not empty
-        if (!empty($data)) {
+        if (!empty ($data)) {
             foreach ($data as $key => $value) {
                 $query->bindValue(":$key", $value);
             }
         }
 
         // Execute the query
-        if (empty($this->errorArray))
+        if (empty ($this->errorArray))
             return $query->execute();
         else
             return false;

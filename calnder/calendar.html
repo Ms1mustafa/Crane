@@ -17,9 +17,11 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="../sheard.js" defer></script>
-  <script src="../RequestesJs/Booking/GetBookDetails.js" defer></script>
+  <script src="../RequestesJs/Appointment/getAppointments.js" defer></script>
+  <script src="../RequestesJs/Appointment/createAppointment.js" defer></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -64,18 +66,15 @@
             <div class="sticky-top mb-3">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Draggable Events</h4>
+                  <h4 class="card-title">Appointment Informations</h4>
                 </div>
                 <div class="card-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="bg-success" id="username">Name User</div>
-                    <div class="bg-warning" id="rqNo">Rq NO</div>
-                    <div class="bg-primary" id="typeAset">Type Aset</div>
-                    <input type="text" placeholder="Aera">
-                    <input type="text" placeholder="Location">
-                    <input type="text" placeholder="WorkType">
-                    <input type="time" placeholder="Time Book">
+                    <div id="username">Name User</div>
+                    <div id="rqNo">Rq NO</div>
+                    <div id="typeAset">Type Aset</div>
+
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -83,34 +82,41 @@
               <!-- /.card -->
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Create a request</h3>
+                  <h3 class="card-title">Create Appointment</h3>
                 </div>
                 <div class="card-body">
                   <div class="btn-group" style="width: 100%; margin-bottom: 10px">
                     <ul class="fc-color-picker" id="color-chooser">
                       <li>
-                        <a class="text-primary" href="#"><i class="fas fa-square"></i></a>
+                        <a class="text-primary"><i class="fas fa-square"></i></a>
                       </li>
                       <li>
-                        <a class="text-warning" href="#"><i class="fas fa-square"></i></a>
+                        <a class="text-warning"><i class="fas fa-square"></i></a>
                       </li>
                       <li>
-                        <a class="text-success" href="#"><i class="fas fa-square"></i></a>
+                        <a class="text-success"><i class="fas fa-square"></i></a>
                       </li>
                       <li>
-                        <a class="text-danger" href="#"><i class="fas fa-square"></i></a>
+                        <a class="text-danger"><i class="fas fa-square"></i></a>
                       </li>
                       <li>
-                        <a class="text-muted" href="#"><i class="fas fa-square"></i></a>
+                        <a class="text-muted"><i class="fas fa-square"></i></a>
                       </li>
                     </ul>
                   </div>
+                  <input type="text" id="area" class="form-control" placeholder="Aera">
+                  <input type="text" id="location" class="form-control" placeholder="Location">
+                  <input type="text" id="work_type" class="form-control" placeholder="WorkType">
+                  <p>Start time</p>
+                  <input type="datetime-local" class="form-control" id="start_date" placeholder="Time Book">
+                  <p>End time</p>
+                  <input type="datetime-local" class="form-control" id="end_date" placeholder="Time Book">
                   <!-- /btn-group -->
                   <div class="input-group">
-                    <input id="new-event" type="text" class="form-control" placeholder=" Title" />
+                    <input id="title" type="text" class="form-control" placeholder=" Title" />
 
                     <div class="input-group-append">
-                      <button id="add-new-event" type="button" class="btn btn-primary">
+                      <button id="createBtn" type="button" class="btn btn-primary">
                         Add
                       </button>
                     </div>
@@ -152,19 +158,62 @@
 
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- jQuery UI -->
   <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
   <!-- fullCalendar 2.2.5 -->
-  <script src="plugins/moment/moment.min.js"></script>
   <script src="plugins/fullcalendar/main.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
+    // time accept only 00 or 30 minutes
+    document.getElementById("start_date").addEventListener("input", function () {
+      var timeValue = this.value;
+      var minutes = parseInt(timeValue.split(":")[1]);
+      // If minutes is greater than 30, set it to 30; otherwise, set it to 0
+      var roundedMinutes = minutes >= 30 ? 30 : 0;
+      // Update the time value with the rounded minutes
+      var roundedTimeValue = timeValue.split(":")[0] + ":" + (roundedMinutes < 10 ? '0' : '') + roundedMinutes;
+      this.value = roundedTimeValue;
+    });
+    document.getElementById("end_date").addEventListener("input", function () {
+      var timeValue = this.value;
+      var minutes = parseInt(timeValue.split(":")[1]);
+      // If minutes is greater than 30, set it to 30; otherwise, set it to 0
+      var roundedMinutes = minutes >= 30 ? 30 : 0;
+      // Update the time value with the rounded minutes
+      var roundedTimeValue = timeValue.split(":")[0] + ":" + (roundedMinutes < 10 ? '0' : '') + roundedMinutes;
+      this.value = roundedTimeValue;
+    });
+
+    // format date time
+    let start_date = document.getElementById('start_date');
+    let start_dateValue = start_date.value;
+
+    start_date.addEventListener('change', function () {
+      const formattedStart_date = formatDateTime(start_date.value);
+      start_dateValue = formattedStart_date;
+    });
+    let end_date = document.getElementById('end_date');
+    let end_dateValue = end_date.value;
+
+    end_date.addEventListener('change', function () {
+      const formattedEnd_date = formatDateTime(end_date.value);
+      end_dateValue = formattedEnd_date;
+    });
+
+    var currColor = "#3c8dbc"; //Red by default
+    // Color chooser button
+    $("#color-chooser > li > a").click(function (e) {
+      e.preventDefault();
+      // Save color
+      currColor = $(this).css("color");
+      // Add color effect to button
+      $("#createBtn").css({
+        "background-color": currColor,
+        "border-color": currColor,
+      });
+    });
+
+
     $(function () {
       /* initialize the external events
    -----------------------------------------------------------------*/
@@ -234,64 +283,10 @@
         },
         themeSystem: "bootstrap",
         //Random default events
-        events: [
-          {
-            title: "All MW Event",
-            start: new Date(y, m, d, 7),
-            end: new Date(y, m, d, 8),
-            backgroundColor: "#f56954", //red
-            borderColor: "#f56954", //red
-            allDay: false,
-          },
-          {
-            title: "Long Event",
-            start: new Date(y, m, d - 5),
-            end: new Date(y, m, d - 2),
-            backgroundColor: "#f39c12", //yellow
-            borderColor: "#f39c12", //yellow
-          },
-          {
-            title: "Meeting",
-            start: new Date(y, m, d, 10, 30),
-            allDay: false,
-            backgroundColor: "#0073b7", //Blue
-            borderColor: "#0073b7", //Blue
-          },
-          {
-            title: "Lunch time",
-            start: new Date(y, m, d, 12, 0),
-            end: new Date(y, m, d, 13, 0),
-            allDay: false,
-            backgroundColor: "#f56954", //Info (aqua)
-            borderColor: "#f56954", //Info (aqua)
-          },
-          {
-            title: "Diner time",
-            start: new Date(y, m, d, 18, 0),
-            end: new Date(y, m, d, 19, 0),
-            allDay: false,
-            backgroundColor: "#f56954", //Info (aqua)
-            borderColor: "#f56954", //Info (aqua)
-          },
-          {
-            title: "Birthday Party",
-            start: new Date(y, m, d + 1, 19, 0),
-            end: new Date(y, m, d + 1, 22, 30),
-            allDay: false,
-            backgroundColor: "#00a65a", //Success (green)
-            borderColor: "#00a65a", //Success (green)
-          },
-          {
-            title: "Click for Google",
-            start: new Date(y, m, 28),
-            end: new Date(y, m, 29),
-            url: "https://www.google.com/",
-            backgroundColor: "#3c8dbc", //Primary (light-blue)
-            borderColor: "#3c8dbc", //Primary (light-blue)
-          },
-        ],
+        events: [],
         editable: false,
-        droppable: false, // this allows things to be dropped onto the calendar !!!
+        droppable: false,
+        initialView: "timeGridDay",
         drop: function (info) {
           // is the "remove after drop" checkbox checked?
           if (checkbox.checked) {
@@ -301,51 +296,67 @@
 
         },
       });
-
       calendar.render();
-      // $('#calendar').fullCalendar()
-
-      /* ADDING EVENTS */
-      var currColor = "#3c8dbc"; //Red by default
-      // Color chooser button
-      $("#color-chooser > li > a").click(function (e) {
-        e.preventDefault();
-        // Save color
-        currColor = $(this).css("color");
-        // Add color effect to button
-        $("#add-new-event").css({
-          "background-color": currColor,
-          "border-color": currColor,
-        });
-      });
-      // $("#add-new-event").click(function (e) {
-      //   e.preventDefault();
-      //   // Get value and make sure it is not null
-      //   var val = $("#new-event").val();
-      //   if (val.length == 0) {
-      //     return;
-      //   }
-
-      //   // Create events
-      //   var event = $("<div />");
-      //   event
-      //     .css({
-      //       "background-color": currColor,
-      //       "border-color": currColor,
-      //       color: "#fff",
-      //     })
-      //     .addClass("external-event");
-      //   event.text(val);
-      //   $("#external-events").prepend(event);
-
-      //   // Add draggable funtionality
-      //   ini_events(event);
-
-      //   // Remove event from text input
-      //   $("#new-event").val("");
-      // });
-      document.querySelector('#calendar > div.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr > div:nth-child(3) > button').click()
     });
+
+    /*
+    events: [
+            {
+              title: "All MW Event",
+              start: new Date(y, m, d, 7),
+              end: new Date(y, m, d, 8),
+              backgroundColor: "#f56954", //red
+              borderColor: "#f56954", //red
+              allDay: false,
+            },
+            {
+              title: "Long Event",
+              start: new Date(y, m, d - 5),
+              end: new Date(y, m, d - 2),
+              backgroundColor: "#f39c12", //yellow
+              borderColor: "#f39c12", //yellow
+            },
+            {
+              title: "Meeting",
+              start: new Date(y, m, d, 10, 30),
+              allDay: false,
+              backgroundColor: "#0073b7", //Blue
+              borderColor: "#0073b7", //Blue
+            },
+            {
+              title: "Lunch time",
+              start: new Date(y, m, d, 12, 0),
+              end: new Date(y, m, d, 13, 0),
+              allDay: false,
+              backgroundColor: "#f56954", //Info (aqua)
+              borderColor: "#f56954", //Info (aqua)
+            },
+            {
+              title: "Diner time",
+              start: new Date(y, m, d, 18, 0),
+              end: new Date(y, m, d, 19, 0),
+              allDay: false,
+              backgroundColor: "#f56954", //Info (aqua)
+              borderColor: "#f56954", //Info (aqua)
+            },
+            {
+              title: "Birthday Party",
+              start: new Date(y, m, d + 1, 19, 0),
+              end: new Date(y, m, d + 1, 22, 30),
+              allDay: false,
+              backgroundColor: "#00a65a", //Success (green)
+              borderColor: "#00a65a", //Success (green)
+            },
+            {
+              title: "Click for Google",
+              start: new Date(y, m, 28),
+              end: new Date(y, m, 29),
+              url: "https://www.google.com/",
+              backgroundColor: "#3c8dbc", //Primary (light-blue)
+              borderColor: "#3c8dbc", //Primary (light-blue)
+            },
+          ],
+    */
   </script>
 </body>
 
